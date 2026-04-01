@@ -1,0 +1,22 @@
+meta {
+  name: Responses
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{baseUrl}}/v1/responses
+  body: json
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "model": "gpt-5",
+    "instructions": "You are a helpful assistant.",
+    "input": "Say hello from the mock."
+  }
+}

@@ -1,0 +1,24 @@
+meta {
+  name: Embeddings
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/v1/embeddings
+  body: json
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "model": "text-embedding-3-small",
+    "input": [
+      "OpenAI",
+      "Phoenix"
+    ]
+  }
+}
