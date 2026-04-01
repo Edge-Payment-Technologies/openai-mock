@@ -20,10 +20,15 @@ defmodule AiProvidersWeb.Router do
     get "/", PageController, :home
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", AiProvidersWeb do
-  #   pipe_through :api
-  # end
+  scope "/v1", AiProvidersWeb do
+    pipe_through :api
+
+    get "/models", OpenAIController, :models
+    get "/models/:id", OpenAIController, :model
+    post "/chat/completions", OpenAIController, :chat_completions
+    post "/embeddings", OpenAIController, :embeddings
+    post "/responses", OpenAIController, :responses
+  end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
   if Application.compile_env(:ai_providers, :dev_routes) do
