@@ -21,7 +21,7 @@ if System.get_env("PHX_SERVER") do
 end
 
 config :ai_providers, AiProvidersWeb.Endpoint,
-  http: [port: String.to_integer(System.get_env("PORT", "4000"))]
+  http: [port: String.to_integer(System.get_env("PORT", "4900"))]
 
 if config_env() == :prod do
   database_url =

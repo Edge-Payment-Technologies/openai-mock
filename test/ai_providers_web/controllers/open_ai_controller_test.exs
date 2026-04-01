@@ -1,6 +1,10 @@
 defmodule AiProvidersWeb.OpenAIControllerTest do
   use AiProvidersWeb.ConnCase, async: true
 
+  setup %{conn: conn} do
+    {:ok, conn: %{conn | host: "api.openai.test"}}
+  end
+
   test "GET /v1/models returns the model list", %{conn: conn} do
     conn = get(conn, ~p"/v1/models")
     response = json_response(conn, 200)
@@ -83,5 +87,14 @@ defmodule AiProvidersWeb.OpenAIControllerTest do
     response = json_response(conn, 400)
 
     assert response["error"]["param"] == "messages"
+  end
+
+  test "GET /v1/models is not served from the browser host", %{conn: conn} do
+    conn =
+      conn
+      |> Map.put(:host, "openai.test")
+      |> get(~p"/v1/models")
+
+    assert response(conn, 404)
   end
 end

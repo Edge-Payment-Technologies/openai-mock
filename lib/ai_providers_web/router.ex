@@ -20,7 +20,7 @@ defmodule AiProvidersWeb.Router do
     get "/", PageController, :home
   end
 
-  scope "/v1", AiProvidersWeb do
+  scope "/v1", AiProvidersWeb, host: "api." do
     pipe_through :api
 
     get "/models", OpenAIController, :models

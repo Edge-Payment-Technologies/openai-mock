@@ -17,13 +17,18 @@ config :ai_providers, AiProviders.Repo,
 # watchers to your application. For example, we can use it
 # to bundle .js and .css sources.
 config :ai_providers, AiProvidersWeb.Endpoint,
-  # Binding to loopback ipv4 address prevents access from other machines.
-  # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
-  http: [ip: {127, 0, 0, 1}],
+  url: [host: "openai.test", port: 4900, scheme: "https"],
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
   secret_key_base: "E9ozbC/UkpqU+1XtKBHGFc6M0nzhYYlQ9fyIaOZw8P3q9JsF854INuO4anvHYbhl",
+  https: [
+    ip: {127, 0, 0, 1},
+    port: 4900,
+    cipher_suite: :strong,
+    keyfile: "priv/ssl/openai.test-key.pem",
+    certfile: "priv/ssl/openai.test.pem"
+  ],
   watchers: [
     esbuild: {Esbuild, :install_and_run, [:ai_providers, ~w(--sourcemap=inline --watch)]},
     tailwind: {Tailwind, :install_and_run, [:ai_providers, ~w(--watch)]}
