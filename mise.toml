@@ -6,4 +6,4 @@ elixir = "1.19.1-otp-28"
 
 [tasks."gen.cert"]
 description = "Generate a local mkcert certificate for openai.test and api.openai.test"
-run = "mkdir -p priv/ssl && mkcert -cert-file priv/ssl/openai.test.pem -key-file priv/ssl/openai.test-key.pem openai.test api.openai.test localhost 127.0.0.1 ::1"
+run = "mkdir -p priv/ssl && mkcert -cert-file priv/ssl/openai.test.pem -key-file priv/ssl/openai.test-key.pem openai.test www.openai.test api.openai.test localhost 127.0.0.1 ::1"

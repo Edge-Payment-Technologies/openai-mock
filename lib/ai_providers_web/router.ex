@@ -14,7 +14,7 @@ defmodule AiProvidersWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", AiProvidersWeb do
+  scope "/", AiProvidersWeb, host: "www." do
     pipe_through :browser
 
     get "/", PageController, :home
