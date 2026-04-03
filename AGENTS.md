@@ -2,7 +2,7 @@
 
 ## Project overview
 
-This repository is a Phoenix 1.8 application named `AiProviders`.
+This repository is a Phoenix 1.8 application named `OpenAIMock`.
 
 Today it serves two purposes:
 
@@ -38,7 +38,7 @@ Use `mix precommit` before wrapping up changes.
 
 ### Mock OpenAI API
 
-Routes are defined in `lib/ai_providers_web/router.ex`.
+Routes are defined in `lib/open_ai_mock_web/router.ex`.
 
 - `GET /v1/models`
 - `GET /v1/models/:id`
@@ -52,44 +52,44 @@ There is currently no auth layer on these endpoints by design.
 
 ### Web layer
 
-- `lib/ai_providers_web/router.ex`
+- `lib/open_ai_mock_web/router.ex`
   - Browser and API pipelines
   - `/v1` OpenAI-compatible routes
 
-- `lib/ai_providers_web/controllers/open_ai_controller.ex`
+- `lib/open_ai_mock_web/controllers/open_ai_controller.ex`
   - Entry point for the mock OpenAI endpoints
-  - Delegates behavior to `AiProviders.OpenAI`
+  - Delegates behavior to `OpenAIMock.OpenAI`
   - Returns JSON errors with explicit status codes
 
-- `lib/ai_providers_web/controllers/open_ai_json.ex`
+- `lib/open_ai_mock_web/controllers/open_ai_json.ex`
   - Minimal Phoenix JSON renderer
   - Returns response maps as-is
 
 ### Mock OpenAI domain
 
-- `lib/ai_providers/open_ai.ex`
+- `lib/open_ai_mock/open_ai.ex`
   - Public facade for the mock OpenAI functionality
 
-- `lib/ai_providers/open_ai/models.ex`
+- `lib/open_ai_mock/open_ai/models.ex`
   - Declares the supported mock chat and embedding models
   - Backs both `/v1/models` and `/v1/models/:id`
 
-- `lib/ai_providers/open_ai/chat_completions.ex`
+- `lib/open_ai_mock/open_ai/chat_completions.ex`
   - Generates deterministic chat completion responses
   - Special-cases prompts about the capital of France
 
-- `lib/ai_providers/open_ai/embeddings.ex`
+- `lib/open_ai_mock/open_ai/embeddings.ex`
   - Generates deterministic embedding vectors from input text
   - Supports a single string or a list of strings
 
-- `lib/ai_providers/open_ai/responses.ex`
+- `lib/open_ai_mock/open_ai/responses.ex`
   - Generates deterministic Responses API payloads
   - Mirrors the same simple prompt behavior as chat completions
 
-- `lib/ai_providers/open_ai/utils.ex`
+- `lib/open_ai_mock/open_ai/utils.ex`
   - Shared helpers for deterministic ids, token counts, input extraction, and embeddings
 
-- `lib/ai_providers/open_ai/error.ex`
+- `lib/open_ai_mock/open_ai/error.ex`
   - Standardized error payloads for invalid requests and unknown models
 
 ## Mock API behavior notes
@@ -118,7 +118,7 @@ Embedding models:
 
 If you add or remove models, update:
 
-- `lib/ai_providers/open_ai/models.ex`
+- `lib/open_ai_mock/open_ai/models.ex`
 - tests that assert model presence
 - Bruno requests if they reference a changed model id
 
@@ -126,12 +126,12 @@ If you add or remove models, update:
 
 A Bruno collection for the mock API lives at:
 
-- `bruno/ai-providers-mock/`
+- `bruno/open-ai-mock/`
 
 Important files:
 
-- `bruno/ai-providers-mock/bruno.json`
-- `bruno/ai-providers-mock/environments/local.bru`
+- `bruno/open-ai-mock/bruno.json`
+- `bruno/open-ai-mock/environments/local.bru`
 
 The local Bruno environment currently uses:
 
@@ -145,8 +145,8 @@ If you add or change endpoints, keep the Bruno collection in sync.
 
 Primary test coverage for the mock API lives in:
 
-- `test/ai_providers_web/controllers/open_ai_controller_test.exs`
-- `test/ai_providers/open_ai_test.exs`
+- `test/open_ai_mock_web/controllers/open_ai_controller_test.exs`
+- `test/open_ai_mock/open_ai_test.exs`
 
 When changing the mock API:
 
@@ -157,7 +157,7 @@ When changing the mock API:
 ## Project conventions
 
 - Use the existing Phoenix controller + JSON module pattern for API work.
-- Prefer small focused modules under `lib/ai_providers/open_ai/` over one large module.
+- Prefer small focused modules under `lib/open_ai_mock/open_ai/` over one large module.
 - Keep error handling explicit; do not silently swallow invalid input.
 - Do not add auth to the mock endpoints unless the task explicitly asks for it.
 - Use `Req` for HTTP calls if outbound requests are ever introduced.
@@ -167,13 +167,13 @@ When changing the mock API:
 
 If you expand the mock API, likely touch points are:
 
-- `lib/ai_providers_web/router.ex`
-- `lib/ai_providers_web/controllers/open_ai_controller.ex`
-- `lib/ai_providers_web/controllers/open_ai_json.ex`
-- `lib/ai_providers/open_ai.ex`
-- new modules under `lib/ai_providers/open_ai/`
-- tests under `test/ai_providers_web/controllers/` and `test/ai_providers/`
-- Bruno files under `bruno/ai-providers-mock/`
+- `lib/open_ai_mock_web/router.ex`
+- `lib/open_ai_mock_web/controllers/open_ai_controller.ex`
+- `lib/open_ai_mock_web/controllers/open_ai_json.ex`
+- `lib/open_ai_mock/open_ai.ex`
+- new modules under `lib/open_ai_mock/open_ai/`
+- tests under `test/open_ai_mock_web/controllers/` and `test/open_ai_mock/`
+- Bruno files under `bruno/open-ai-mock/`
 
 Good additions would be:
 

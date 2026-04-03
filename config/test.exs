@@ -5,23 +5,23 @@ import Config
 # The MIX_TEST_PARTITION environment variable can be used
 # to provide built-in test partitioning in CI environment.
 # Run `mix help test` for more information.
-config :ai_providers, AiProviders.Repo,
+config :open_ai_mock, OpenAIMock.Repo,
   username: "postgres",
   password: "postgres",
   hostname: "localhost",
-  database: "ai_providers_test#{System.get_env("MIX_TEST_PARTITION")}",
+  database: "open_ai_mock_test#{System.get_env("MIX_TEST_PARTITION")}",
   pool: Ecto.Adapters.SQL.Sandbox,
   pool_size: System.schedulers_online() * 2
 
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
-config :ai_providers, AiProvidersWeb.Endpoint,
+config :open_ai_mock, OpenAIMockWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4002],
   secret_key_base: "KG/svv5v9Ew4/IYrSG12IVcMDsQ5ETP3Cjqq9y1+wYAwgQNWaKT7zK6aYAR2dz10",
   server: false
 
 # In test we don't send emails
-config :ai_providers, AiProviders.Mailer, adapter: Swoosh.Adapters.Test
+config :open_ai_mock, OpenAIMock.Mailer, adapter: Swoosh.Adapters.Test
 
 # Disable swoosh api client as it is only required for production adapters
 config :swoosh, :api_client, false

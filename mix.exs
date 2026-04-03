@@ -1,9 +1,9 @@
-defmodule AiProviders.MixProject do
+defmodule OpenAIMock.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :ai_providers,
+      app: :open_ai_mock,
       version: "0.1.0",
       elixir: "~> 1.15",
       elixirc_paths: elixirc_paths(Mix.env()),
@@ -20,7 +20,7 @@ defmodule AiProviders.MixProject do
   # Type `mix help compile.app` for more information.
   def application do
     [
-      mod: {AiProviders.Application, []},
+      mod: {OpenAIMock.Application, []},
       extra_applications: [:logger, :runtime_tools]
     ]
   end
@@ -82,10 +82,10 @@ defmodule AiProviders.MixProject do
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
       "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
-      "assets.build": ["compile", "tailwind ai_providers", "esbuild ai_providers"],
+      "assets.build": ["compile", "tailwind open_ai_mock", "esbuild open_ai_mock"],
       "assets.deploy": [
-        "tailwind ai_providers --minify",
-        "esbuild ai_providers --minify",
+        "tailwind open_ai_mock --minify",
+        "esbuild open_ai_mock --minify",
         "phx.digest"
       ],
       precommit: ["compile --warnings-as-errors", "deps.unlock --unused", "format", "test"]

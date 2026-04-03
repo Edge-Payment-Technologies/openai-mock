@@ -7,19 +7,19 @@
 # General application configuration
 import Config
 
-config :ai_providers,
-  ecto_repos: [AiProviders.Repo],
+config :open_ai_mock,
+  ecto_repos: [OpenAIMock.Repo],
   generators: [timestamp_type: :utc_datetime]
 
 # Configure the endpoint
-config :ai_providers, AiProvidersWeb.Endpoint,
+config :open_ai_mock, OpenAIMockWeb.Endpoint,
   url: [host: "localhost"],
   adapter: Bandit.PhoenixAdapter,
   render_errors: [
-    formats: [html: AiProvidersWeb.ErrorHTML, json: AiProvidersWeb.ErrorJSON],
+    formats: [html: OpenAIMockWeb.ErrorHTML, json: OpenAIMockWeb.ErrorJSON],
     layout: false
   ],
-  pubsub_server: AiProviders.PubSub,
+  pubsub_server: OpenAIMock.PubSub,
   live_view: [signing_salt: "TmhW49pI"]
 
 # Configure the mailer
@@ -29,12 +29,12 @@ config :ai_providers, AiProvidersWeb.Endpoint,
 #
 # For production it's recommended to configure a different adapter
 # at the `config/runtime.exs`.
-config :ai_providers, AiProviders.Mailer, adapter: Swoosh.Adapters.Local
+config :open_ai_mock, OpenAIMock.Mailer, adapter: Swoosh.Adapters.Local
 
 # Configure esbuild (the version is required)
 config :esbuild,
   version: "0.25.4",
-  ai_providers: [
+  open_ai_mock: [
     args:
       ~w(js/app.js --bundle --target=es2022 --outdir=../priv/static/assets/js --external:/fonts/* --external:/images/* --alias:@=.),
     cd: Path.expand("../assets", __DIR__),
@@ -44,7 +44,7 @@ config :esbuild,
 # Configure tailwind (the version is required)
 config :tailwind,
   version: "4.1.12",
-  ai_providers: [
+  open_ai_mock: [
     args: ~w(
       --input=assets/css/app.css
       --output=priv/static/assets/css/app.css

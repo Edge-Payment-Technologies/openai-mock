@@ -1,4 +1,4 @@
-# AiProviders
+# OpenAIMock
 
 To start your Phoenix server:
 

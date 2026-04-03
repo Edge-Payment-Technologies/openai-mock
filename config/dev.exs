@@ -1,11 +1,11 @@
 import Config
 
 # Configure your database
-config :ai_providers, AiProviders.Repo,
+config :open_ai_mock, OpenAIMock.Repo,
   username: "postgres",
   password: "postgres",
   hostname: "localhost",
-  database: "ai_providers_dev",
+  database: "open_ai_mock_dev",
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
@@ -16,7 +16,7 @@ config :ai_providers, AiProviders.Repo,
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we can use it
 # to bundle .js and .css sources.
-config :ai_providers, AiProvidersWeb.Endpoint,
+config :open_ai_mock, OpenAIMockWeb.Endpoint,
   url: [host: "openai.test", port: 4900, scheme: "https"],
   check_origin: false,
   code_reloader: true,
@@ -30,8 +30,8 @@ config :ai_providers, AiProvidersWeb.Endpoint,
     certfile: "priv/ssl/openai.test.pem"
   ],
   watchers: [
-    esbuild: {Esbuild, :install_and_run, [:ai_providers, ~w(--sourcemap=inline --watch)]},
-    tailwind: {Tailwind, :install_and_run, [:ai_providers, ~w(--watch)]}
+    esbuild: {Esbuild, :install_and_run, [:open_ai_mock, ~w(--sourcemap=inline --watch)]},
+    tailwind: {Tailwind, :install_and_run, [:open_ai_mock, ~w(--watch)]}
   ]
 
 # ## SSL Support
@@ -58,7 +58,7 @@ config :ai_providers, AiProvidersWeb.Endpoint,
 # different ports.
 
 # Reload browser tabs when matching files change.
-config :ai_providers, AiProvidersWeb.Endpoint,
+config :open_ai_mock, OpenAIMockWeb.Endpoint,
   live_reload: [
     web_console_logger: true,
     patterns: [
@@ -67,13 +67,13 @@ config :ai_providers, AiProvidersWeb.Endpoint,
       # Gettext translations
       ~r"priv/gettext/.*\.po$",
       # Router, Controllers, LiveViews and LiveComponents
-      ~r"lib/ai_providers_web/router\.ex$",
-      ~r"lib/ai_providers_web/(controllers|live|components)/.*\.(ex|heex)$"
+      ~r"lib/open_ai_mock_web/router\.ex$",
+      ~r"lib/open_ai_mock_web/(controllers|live|components)/.*\.(ex|heex)$"
     ]
   ]
 
 # Enable dev routes for dashboard and mailbox
-config :ai_providers, dev_routes: true
+config :open_ai_mock, dev_routes: true
 
 # Do not include metadata nor timestamps in development logs
 config :logger, :default_formatter, format: "[$level] $message\n"
